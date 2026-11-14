@@ -330,8 +330,8 @@ body.p11-dark .cus-story{border-top-color:rgba(255,255,255,.12)!important}
 @media (max-width:767px){.tms-co.lg-on img{height:24px}.tms-co.lg-on.lg-tall img{height:36px}.cus-story-logo.lg-on img{height:40px}.cus-story-logo.lg-on.lg-tall img{height:56px}}
 /* Pass 21: 60-days hero buttons = the site CTA pair (ink + ghost) */
 .f-logo-button-wrapper{gap:10px!important}
-.f-logo-button-wrapper .cta-2{height:48px!important;padding:0 24px!important;border:0!important;border-radius:12px!important;background:#111111!important;color:#FFFFFF!important;display:inline-flex!important;align-items:center;font-size:15px!important}
-.f-logo-button-wrapper .cta-2.white{background:transparent!important;color:#111111!important;box-shadow:inset 0 0 0 1px #111111;padding:0 22px!important}
+html body .f-logo-button-wrapper .cta-2{height:48px!important;padding:0 24px!important;border:0!important;border-radius:12px!important;background:#111111!important;color:#FFFFFF!important;display:inline-flex!important;align-items:center;font-size:15px!important}
+html body .f-logo-button-wrapper .cta-2.white{background:transparent!important;color:#111111!important;box-shadow:inset 0 0 0 1px #111111;padding:0 22px!important}
 /* Pass 21: glass frame (B) round the /agents rule cards */
 .gfx{position:relative;padding:10px;border-radius:calc(var(--gfr,18px) + 10px);background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.12),0 40px 90px -30px rgba(0,0,0,.7)}
 .gfx-log{margin-top:96px}.gfx>.agr-log{margin-top:0!important}
