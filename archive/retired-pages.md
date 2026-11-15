@@ -2,7 +2,9 @@
 
 Taken off the site because no page links to them. They are drafts in Webflow, not deleted, and can be published again. Their full content is in Webflow and in the automatic backup from the publish before this one.
 
-## Static pages (set to draft)
+## Static pages (set to draft, moved into the Webflow folder "old")
+
+They now sit in the existing password-protected `old` folder (Webflow folder ID 6772630c34939788e26d4d1c), next to 43 earlier retired pages. The URLs in the table are the ones they had while live.
 
 | URL | Webflow title | Page ID | Why |
 |---|---|---|---|
