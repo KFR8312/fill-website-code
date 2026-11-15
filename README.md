@@ -4,31 +4,34 @@ CSS and JavaScript layered on top of the fill.work Webflow site: glass frames, h
 
 Webflow still owns the pages, text and base styles. These two files add to them.
 
-| File | What it holds | Where Webflow loads it |
-|---|---|---|
-| `css/fill-site.css` | All added styles | Site settings > Custom code > Head |
-| `js/fill-site.js` | All added behaviour | Site settings > Custom code > Footer (before `</body>`) |
+| File | What it holds |
+|---|---|
+| `css/fill-site.css` | All added styles |
+| `js/fill-site.js` | All added behaviour |
+
+The heading type scale is not in here. It lives in its own embed in the Webflow Footer component and stays there.
 
 ## How the site loads it
 
-Webflow loads the files from this repo through jsDelivr, pinned to a version tag:
+Webflow loads both files from this repo through jsDelivr, pinned to a version tag. They are two registered site scripts (Webflow > Site settings > Custom code > Scripts):
 
-```html
-<!-- Head -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KFR8312/fill-website-code@v21/css/fill-site.css">
-<!-- Footer -->
-<script src="https://cdn.jsdelivr.net/gh/KFR8312/fill-website-code@v21/js/fill-site.js" defer></script>
-```
+| Script | Where | What it does |
+|---|---|---|
+| `fill site css` | Head | A tiny loader that adds `https://cdn.jsdelivr.net/gh/KFR8312/fill-website-code@vNN/css/fill-site.css` as a normal stylesheet, so the page renders with it from the start |
+| `fill site js` | Footer | Loads `https://cdn.jsdelivr.net/gh/KFR8312/fill-website-code@vNN/js/fill-site.js` with an integrity hash, so the browser refuses a file that does not match |
+
+The site's own head and footer code (consent, trackers, cookie banner, Intercom) is separate and untouched.
 
 ## Making a change
 
 1. Edit the files and test on the Webflow staging site.
-2. Commit, then tag the commit with the next version (`v22`, `v23` ...).
-3. Change the tag in the two Webflow lines and publish.
+2. Commit, then tag the commit with the next version (`v23`, `v24` ...) and push the tag.
+3. Register new versions of the two Webflow scripts with the new tag in the URLs. The JS needs its new integrity hash: `echo "sha384-$(openssl dgst -sha384 -binary js/fill-site.js | openssl base64 -A)"`.
+4. Apply the new versions, remove the old ones, publish staging, test, then publish the live site.
 
 ## Undo
 
-Point the two Webflow lines back at the previous tag and publish. Every version stays in this repo's history.
+Apply the previous versions of the two scripts again and publish. Every version stays in this repo's history, and jsDelivr keeps serving old tags.
 
 ## Rules
 
