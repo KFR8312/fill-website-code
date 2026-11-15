@@ -110,8 +110,7 @@ body.p11-ag .fw-hi em{color:#5750B1!important}
 body.p11-ag .count.n{background:#EBECFE!important;color:#5750B1!important}
 body.p11-ag .pill.warn{background:#F0AD4E!important;color:#533200!important}
 body.p11-ag .tdot{background:#008236!important}
-body.p11-ag .lgr i,body.p11-ag .op.glow-indigo .lgr i{background:#6E6DC6!important}
-body.p11-ag .agd-c1 .agd-it i{background:#F0AD4E!important}
+body.p11-ag .lgr i{background:#6E6DC6!important}
 /* Clear rules, option E: rule card + log */
 .agd.agd-e .agd-in{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:64px;align-items:center}
 .agd.agd-e .agd-h{text-align:left}
@@ -379,7 +378,7 @@ html body .f-logo-button-wrapper .cta-2.white{background:transparent!important;c
 .arb-card .on{opacity:1!important;transform:none!important}
 @media (max-width:991px){.arb-in{grid-template-columns:minmax(0,1fr);gap:40px}.arb h2{font-size:36px}}
 @media (max-width:767px){.arb{padding:88px 0 24px}.arb-in{padding:0 24px}.arb h2{font-size:32px}.arb p{font-size:16px}.arb-card{padding:18px}}
-@media (prefers-reduced-motion:reduce){.arb-card *,.fqf,.fqf *{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.arb-card *{transition:none!important}}
 /* Rule card glow (Sana-style): a light beam runs round the edge, with a soft halo under it */
 @property --arbA{syntax:'<angle>';inherits:false;initial-value:0deg}
 .arb-card{position:relative}

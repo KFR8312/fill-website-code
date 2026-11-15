@@ -1,0 +1,468 @@
+<!-- Pass 11 (2026-11-14, request): no italics + straight quotes, photo close on every page, consultants close on Procurement/HR/Finance,
+     /customers black above the fold, Home composer and Source/Control windows animated, compare pages on the theme (product window, sundown, glass, Lucide). -->
+<style>
+/* Never italic */
+html body :is(*:not(svg):not(svg *)){font-style:normal!important}
+/* Close on every page = Home close: blurred stair photo, dark fade from the left and bottom */
+section.sec-cta{position:relative;isolation:isolate;overflow:hidden;min-height:560px;display:flex;align-items:flex-end;padding-top:120px!important;padding-bottom:110px!important;
+  background:url("https://cdn.prod.website-files.com/6772630c34939788e26d4ae6/6a0ad20648a20b4c5c8bcb16_ChatGPT%20Image%2018%20maj%202026%2010_46_51.webp") 50% 40%/cover no-repeat #0a0a0a!important}
+section.sec-cta::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(rgba(10,10,10,.25) 0%,rgba(10,10,10,.45) 45%,rgba(10,10,10,.92) 85%,#0a0a0a 100%),linear-gradient(90deg,rgba(10,10,10,.75) 0%,rgba(10,10,10,0) 65%)}
+section.sec-cta>*{position:relative;z-index:1;width:100%}
+@media (max-width:767px){section.sec-cta{min-height:460px;padding-top:80px!important;padding-bottom:72px!important;background-position:60% 40%!important}}
+/* /customers: black above the fold, like the customer stories */
+body.p11-dark .cus-hero{background:#0a0a0a!important}
+body.p11-dark .cus-hero .cus-hero-h1{color:#fff!important}
+body.p11-dark .cus-hero p,body.p11-dark .cus-hero .cus-c>div:not(:has(img)){color:rgba(255,255,255,.72)!important}
+body.p11-dark{background:#0a0a0a}
+/* Home "Describe the need": the composer types a hiring question, sends it, and Fill answers */
+section.chs .fq-type{max-width:none!important}
+section.chs .fq-caret{animation:fqBlink 1s steps(1) infinite}
+@keyframes fqBlink{50%{opacity:0}}
+section.chs .fq-send{transition:transform .15s ease,box-shadow .3s ease}
+section.chs .fq-send.fq-press{transform:scale(.84);box-shadow:0 0 0 6px rgba(85,82,216,.22)}
+section.chs .fq-suggs>.fq-sugg{transition:opacity .3s ease}
+.fq-reply{position:absolute;left:50%;top:0;transform:translate(-50%,6px);display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 10px;border-radius:999px;background:#EBECFE;color:#5750B1;font-size:12px;font-weight:500;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease}
+.fq-reply svg{width:12px;height:12px;flex:none}
+section.chs.fq-answered .fq-suggs>.fq-sugg{opacity:0}
+section.chs.fq-answered .fq-reply{opacity:1;transform:translate(-50%,0)}
+/* Source and Control windows: rows come in, values settle, the main button pulses once (replays each time the window scrolls in) */
+.cw.ca .ca-row,.cw.ca .ca-pop,.cw.ca .ca-in-r{opacity:0}
+.cw.ca.ca-on .ca-row{animation:caRow .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*90ms + 150ms)}
+@keyframes caRow{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cw.ca.ca-on .ca-pop{animation:caPop .42s cubic-bezier(.2,.9,.3,1.3) both;animation-delay:var(--d,700ms)}
+@keyframes caPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+.cw.ca.ca-on .ca-grow{animation:caGrow .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,400ms);transform-origin:left center}
+@keyframes caGrow{from{transform:scaleX(0)}}
+.cw.ca.ca-on .ca-slide{animation:caSlide 1.1s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,500ms)}
+@keyframes caSlide{from{left:0}}
+.cw.ca.ca-on .ca-flash{animation:caFlash 1.6s ease both;animation-delay:var(--d,900ms)}
+@keyframes caFlash{40%{background-color:rgba(240,173,78,.28)}}
+.cw.ca.ca-on .ca-row.ca-flash{animation:caRow .55s cubic-bezier(.2,.7,.2,1) both,caFlash 1.6s ease both;animation-delay:calc(var(--i,0)*90ms + 150ms),var(--d,1000ms)}
+.cw.ca.ca-on .ca-in-r{animation:caInR .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,600ms)}
+@keyframes caInR{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.cw.ca.ca-on .ca-ink{animation:caInk 1.6s ease both;animation-delay:var(--d,1400ms)}
+@keyframes caInk{0%{box-shadow:0 0 0 0 rgba(17,17,17,.35)}70%{box-shadow:0 0 0 10px rgba(17,17,17,0)}100%{box-shadow:0 0 0 0 rgba(17,17,17,0)}}
+/* Control step 05: ask a question in plain words, Fill answers with a chart */
+.cw-ask .pn{display:flex;flex-direction:column;min-height:528px}
+.ask-thread{flex:0 0 auto;margin-top:auto;display:flex;flex-direction:column;padding:16px 0 14px}
+.cw-ask.ask-sent .ask-thread{flex:1 1 auto;margin-top:0}
+.cw-ask:not(.ask-sent) .ask-comp{margin-bottom:auto}
+.ask-hint{margin:0 0 4px;text-align:center;font-size:13px;color:#8A8580}
+.ask-hint b{display:block;margin-bottom:6px;font-size:19px;font-weight:600;color:#0c0a09;letter-spacing:-.01em}
+.cw-ask.ask-sent .ask-hint{display:none}
+.ask-user{align-self:flex-end;max-width:78%;padding:9px 13px;border-radius:14px 14px 4px 14px;background:#111;color:#fff;font-size:13.5px;line-height:1.45;display:none}
+.cw-ask.ask-sent .ask-user{display:block;animation:askIn .35s cubic-bezier(.2,.7,.2,1) both}
+.ask-who{display:none;align-items:center;gap:8px;margin-top:16px;font-size:12px;color:#79716b}
+.ask-who>span:first-child{width:22px;height:22px;border-radius:50%;background:#EBECFE;color:#5750B1;display:grid;place-items:center}
+.ask-who svg{width:12px;height:12px}
+.cw-ask.ask-sent .ask-who{display:flex;animation:askIn .35s .25s cubic-bezier(.2,.7,.2,1) both}
+.ask-dots{display:inline-flex;gap:3px;margin-left:2px}.ask-dots i{width:4px;height:4px;border-radius:50%;background:#8A8580;animation:askDot 1s infinite}
+.ask-dots i:nth-child(2){animation-delay:.15s}.ask-dots i:nth-child(3){animation-delay:.3s}
+@keyframes askDot{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.cw-ask.ask-done .ask-dots{display:none}
+.ask-ans{display:none;margin-top:8px}
+.cw-ask.ask-done .ask-ans{display:block;animation:askIn .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes askIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ask-txt{margin:0;font-size:13.5px;line-height:1.55;color:#0c0a09}.ask-txt b{font-weight:600}
+.ask-chart{margin-top:12px;background:#fff;border-radius:12px;box-shadow:0 0 0 1px #ECEAE6;padding:12px 16px 10px}
+.ask-ch{display:flex;justify-content:space-between;font-size:12px;color:#79716b;margin-bottom:6px}
+.ask-row{display:grid;grid-template-columns:76px minmax(0,1fr) 56px;align-items:center;gap:10px;height:27px;font-size:12.5px}
+.ask-bar{height:10px;border-radius:5px;background:#F1F0EE;overflow:hidden}
+.ask-bar i{display:block;height:100%;width:var(--w);border-radius:5px;background:#C6C8FE;transform-origin:left center;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.ask-row.top .ask-bar i{background:#6E6DC6}.ask-row.top b{font-weight:600}
+.ask-v{text-align:right;font-variant-numeric:tabular-nums;color:#44403c;opacity:0;transition:opacity .4s;transition-delay:var(--d,0ms)}
+.cw-ask.ask-done .ask-bar i{transform:none}.cw-ask.ask-done .ask-v{opacity:1}
+.ask-src{margin-top:6px;font-size:11.5px;color:#8A8580}
+.ask-comp{display:flex;align-items:center;gap:10px;height:50px;padding:0 9px 0 16px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px #E4E2DE,0 8px 24px -16px rgba(10,20,70,.3);font-size:13.5px}
+.ask-q{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ask-q:empty+.ask-caret{display:none}
+.ask-q:empty::before{content:"Ask about your consultants, suppliers and spend";color:#a8a29e}
+.ask-caret{width:1.5px;height:16px;background:#1c1917;margin-left:-9px;flex:none;animation:fqBlink 1s steps(1) infinite}
+.ask-send{width:30px;height:30px;margin-left:auto;border-radius:50%;background:#111;display:grid;place-items:center;flex:none;transition:transform .15s ease,box-shadow .3s ease}
+.ask-send svg{width:14px;height:14px;color:#fff}
+.ask-send.on{transform:scale(.84);box-shadow:0 0 0 6px rgba(85,82,216,.22)}
+/* Control hero: several people in the register at once; "You" hovers Omar Haddad's bar and his consultant card opens */
+:is(.fl-hwin,.chp-win) .cv.mc-on .cc{opacity:0;transform:translateY(10px) scale(.97);transform-origin:80% 0;transition:opacity .3s ease,transform .35s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+:is(.fl-hwin,.chp-win) .cv.mc-on.mc-open .cc{opacity:1;transform:none}
+:is(.fl-hwin,.chp-win) .cv .tl-b.on{transition:box-shadow .25s ease}
+:is(.fl-hwin,.chp-win) .cv.mc-hover .tl-b.on{box-shadow:0 0 0 4px rgba(85,82,216,.22)}
+:is(.fl-hwin,.chp-win) .cv .tl-r{transition:background-color .25s ease}
+:is(.fl-hwin,.chp-win) .cv.mc-hover .tl-r.mc-row{background:#F7F7FD}
+.mc-layer{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden}
+.mc{position:absolute;left:0;top:0;display:flex;align-items:flex-start;gap:2px;will-change:transform}
+.mc svg{width:calc(22px*var(--mcs,1));height:calc(22px*var(--mcs,1));flex:none;filter:drop-shadow(0 2px 3px rgba(10,20,70,.25))}
+.mc span{margin-top:calc(16px*var(--mcs,1));padding:calc(3px*var(--mcs,1)) calc(8px*var(--mcs,1));border-radius:999px;background:var(--c);color:#fff;font:600 calc(12px*var(--mcs,1))/1.33 "DM Sans",system-ui,sans-serif;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(10,20,70,.35)}
+.mc.mc-you{transition:transform 1.3s cubic-bezier(.45,.05,.25,1)}
+.mc.mc-a{transform:translate(470px,24px);animation:mcA 9s ease-in-out infinite}
+.mc.mc-b{transform:translate(760px,430px);animation:mcB 11s ease-in-out infinite}
+@keyframes mcA{0%,100%{transform:translate(470px,24px)}30%{transform:translate(640px,58px)}55%{transform:translate(590px,12px)}80%{transform:translate(410px,70px)}}
+@keyframes mcB{0%,100%{transform:translate(760px,430px)}25%{transform:translate(880px,400px)}50%{transform:translate(840px,476px)}75%{transform:translate(690px,452px)}}
+/* /agents: status and accent colours from the design system tokens: green-50 + health-good, accent-50/400/500/700, warning, secondary. CTA unchanged. */
+body.p11-ag .fw-on{background:#F0FDF4!important;color:#008236!important}
+body.p11-ag .fw-run{background:#EBECFE!important;color:#5750B1!important}
+body.p11-ag .fw-off{background:#F5F5F4!important;color:#79716B!important}
+body.p11-ag .fw-bar{background:#F5F5F4!important}body.p11-ag .fw-bar i{background:#8482E1!important}
+body.p11-ag .fw-ri.on{background:#EBECFE!important;color:#5750B1!important}
+body.p11-ag .fw-av,body.p11-ag .fw-pav{background:#6E6DC6!important}
+body.p11-ag .fw-sug span{background:#EBECFE!important;color:#5750B1!important}
+body.p11-ag .fw-hi em{color:#5750B1!important}
+body.p11-ag .count.n{background:#EBECFE!important;color:#5750B1!important}
+body.p11-ag .pill.warn{background:#F0AD4E!important;color:#533200!important}
+body.p11-ag .tdot{background:#008236!important}
+body.p11-ag .lgr i,body.p11-ag .op.glow-indigo .lgr i{background:#6E6DC6!important}
+body.p11-ag .agd-c1 .agd-it i{background:#F0AD4E!important}
+/* Clear rules, option E: rule card + log */
+.agd.agd-e .agd-in{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:64px;align-items:center}
+.agd.agd-e .agd-h{text-align:left}
+.agd.agd-e .agd-h p{margin-left:0}
+.agr{display:grid;grid-template-columns:minmax(0,420px) minmax(0,300px);gap:24px;align-items:start;justify-content:end}
+.agr-card,.agr-log{border-radius:18px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 30px 80px rgba(0,0,0,.4);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.agr-card{padding:24px 26px}
+.agr-log{padding:22px 24px;margin-top:96px}
+.agr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.agr-id{display:flex;align-items:center;gap:10px}
+.agr-id b{font-size:18px;font-weight:600}
+.agr-ic{width:34px;height:34px;border-radius:10px;background:#6E6DC6;display:grid;place-items:center;color:#FFFFFF}
+.agd.agd-e .agd-glow{display:none}
+.agr-sw{position:relative;width:36px;height:20px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.15);cursor:pointer;flex:none;transition:background-color .2s ease}
+.agr-sw::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .2s ease,background-color .2s ease}
+.agr-sw[aria-checked=true]{background:#E7E5E4}
+.agr-sw[aria-checked=true]::after{transform:translateX(16px);background:#0C0A09}
+.agr-sw:focus-visible{outline:2px solid rgba(231,229,228,.6);outline-offset:2px}
+.agr-kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid rgba(255,255,255,.08);font-size:15px;line-height:1.45}
+.agr-kv:last-child{padding-bottom:0}
+.agr-kv>span{font-size:13px;color:rgba(255,255,255,.55);padding-top:1px}
+.agr-tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:13px;margin:0 6px 6px 0;background:rgba(110,109,198,.25);color:#DADCFF}
+.agr-no{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.agr-no svg{flex:none}
+.agr-lh{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:10px}
+.agr-lr{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.4;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
+.agr-lr>span:first-child{font-size:12px;color:rgba(255,255,255,.5);padding-top:2px}
+.agr-in .agr-lr{opacity:1;transform:none}
+.agr-per{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;background:#FFFFFF;color:#0B0B0B;margin-right:8px}
+@media (prefers-reduced-motion:reduce){.agr-lr{opacity:1;transform:none;transition:none}}
+@media (max-width:991px){.agd.agd-e .agd-in{grid-template-columns:minmax(0,1fr);gap:40px}.agd.agd-e .agd-h{text-align:center}.agd.agd-e .agd-h p{margin-left:auto}.agr{justify-content:center}}
+@media (max-width:767px){.agr{grid-template-columns:minmax(0,1fr)}.agr-log{margin-top:0}.agr-kv{grid-template-columns:96px minmax(0,1fr)}}
+/* Compare pages (SAP, Beeline, MSP, VMS) on the theme */
+.cmp-hero-figwrap.cmx-on>*:not(.cmx-stage){display:none!important}
+.cmx-stage{position:relative;height:640px;border-radius:24px;overflow:hidden;background:#F3F2F0;isolation:isolate;font-family:"DM Sans",system-ui,sans-serif;color:#0c0a09;text-align:left}
+.cmx-greet,.cmx-chips{text-align:center}
+.cmx-stage::before{content:"";position:absolute;left:50%;bottom:-430px;width:1700px;height:900px;margin-left:-850px;border-radius:50%;filter:blur(24px);z-index:0;
+  background:radial-gradient(50% 50% at 50% 50%,#0B1240 0%,#1C34B4 16%,#3E63E6 32%,#8FA6F2 52%,rgba(206,214,248,.6) 70%,rgba(243,242,240,0) 100%)}
+.cmx-win{position:absolute;z-index:1;left:50%;top:72px;width:1040px;height:640px;margin-left:-520px;border-radius:14px 14px 0 0;background:#F1F1F2;display:flex;overflow:hidden;transform-origin:top center;
+  box-shadow:0 0 0 1px rgba(0,0,0,.07),0 50px 100px -40px rgba(10,20,70,.55)}
+.cmx-side{width:208px;flex:none;padding:16px 12px;font-size:13px;color:#44403c}
+.cmx-org{display:flex;align-items:center;gap:8px;font-weight:600;color:#0c0a09;margin:0 0 14px 6px}
+.cmx-org span{width:22px;height:22px;border-radius:6px;background:#111827;color:#fff;display:grid;place-items:center;font-size:11px}
+.cmx-nav{display:flex;align-items:center;gap:9px;height:30px;padding:0 8px;border-radius:8px}
+.cmx-nav svg{width:15px;height:15px;flex:none;color:#57534e}
+.cmx-nav.on{background:#fff;color:#0c0a09;box-shadow:0 0 0 1px #ECEAE6}
+.cmx-nav em{margin-left:auto;font-size:11.5px;color:#79716b}.cmx-nav em.l{min-width:18px;height:18px;border-radius:9px;background:#EBECFE;color:#5750B1;display:grid;place-items:center}
+.cmx-sec{margin:14px 8px 4px;font-size:11.5px;color:#8A8580}
+.cmx-main{flex:1;min-width:0;margin:8px 8px 0 0;border:1px solid #E7E5E4;border-bottom:0;border-radius:12px 12px 0 0;background:#F9F9FA;padding:40px 44px 0;display:flex;flex-direction:column;align-items:center}
+.cmx-greet{margin:0 0 18px;font-size:24px;font-weight:600;letter-spacing:-.01em}
+.cmx-comp{position:relative;width:560px;height:96px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px #E4E2DE,0 8px 24px -16px rgba(10,20,70,.3);padding:16px 18px;font-size:14px}
+.cmx-comp i{display:inline-block;width:1.5px;height:16px;background:#1c1917;vertical-align:-3px;margin-left:1px;animation:fqBlink 1s steps(1) infinite}
+.cmx-comp b{position:absolute;right:14px;bottom:12px;width:28px;height:28px;border-radius:50%;background:#1c1917}
+.cmx-chips{display:flex;gap:8px;margin:14px 0 26px}
+.cmx-chip{height:28px;padding:0 12px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px #E7E5E4;font-size:12px;color:#44403c;display:inline-flex;align-items:center}
+.cmx-cards{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.cmx-card{background:#fff;border-radius:12px;box-shadow:0 0 0 1px #ECEAE6;padding:13px 14px;font-size:13px}
+.cmx-card small{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#79716b;margin-bottom:6px}
+.cmx-pill{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:500}
+.cmx-pill.lav{background:#EBECFE;color:#5750B1}.cmx-pill.amb{background:#F0AD4E;color:#533200}.cmx-pill.grn{background:#F0FDF4;color:#008236}
+.cmx-tbl{width:100%;background:#fff;border-radius:12px;box-shadow:0 0 0 1px #ECEAE6;padding:6px 14px;font-size:13px}
+.cmx-tr{display:grid;grid-template-columns:minmax(0,2.2fr) 1.2fr .8fr 1.1fr;align-items:center;gap:10px;height:40px;border-bottom:1px solid #F1F0EE}
+.cmx-tr:last-child{border-bottom:0}.cmx-tr.h{height:30px;font-size:11.5px;color:#79716b}
+.cmx-av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font-size:9px;font-weight:600;margin-right:8px;vertical-align:middle}
+.cmx-mut{color:#79716b}
+@media (max-width:991px){.cmx-stage{height:auto;aspect-ratio:16/10}}
+/* "Where Fill differs": sky photo -> paper and blue sun; the list card in liquid glass with Lucide icons */
+.cmp-twocol-left{background:#F3F2F0!important;position:relative;overflow:hidden;isolation:isolate}
+.cmp-twocol-left::before{content:"";position:absolute;left:-30%;right:-30%;bottom:-75%;height:125%;border-radius:50%;filter:blur(26px);opacity:.6;z-index:0;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,#0B1240 0%,#1C34B4 18%,#3E63E6 36%,#8FA6F2 56%,rgba(206,214,248,.6) 72%,rgba(243,242,240,0) 100%)}
+.cmp-twocol-left>*{position:relative;z-index:1}
+.cmp-twocol-figure{background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-radius:20px!important;
+  box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.6),0 0 0 1px rgba(20,30,80,.05),0 24px 48px -20px rgba(10,20,70,.38)!important}
+.cmp-twocol-pin-active{background:rgba(255,255,255,.9)!important;box-shadow:0 1px 2px rgba(10,20,70,.08)!important;border-radius:12px!important}
+.cmp-twocol-pin-icon svg{width:16px;height:16px;display:block;color:#1c1917}
+/* Card pictures: dawn, daylight, blue sun per column; the cards in glass */
+.cmp-card-mock{background:var(--tp,#F3F2F0)!important;position:relative;overflow:hidden;isolation:isolate;--tp:#F3F2F0;--g0:#0B1240;--g1:#1C34B4;--g2:#3E63E6;--g3:#8FA6F2;--g4:rgba(206,214,248,.6)}
+.cmp-card-mock::before{content:"";position:absolute;left:-20%;right:-20%;bottom:-62%;height:120%;border-radius:50%;filter:blur(24px);opacity:.5;z-index:0;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,var(--g0) 0%,var(--g1) 20%,var(--g2) 40%,var(--g3) 60%,var(--g4) 76%,rgba(255,255,255,0) 100%)}
+.cmp-card-mock>*{position:relative;z-index:1}
+.cmp-card-mock[data-tod=dawn]{--tp:#F6F1EC;--g0:#D9663F;--g1:#E98F6A;--g2:#E6B3C2;--g3:#D5CCF3;--g4:rgba(236,230,248,.6)}
+.cmp-card-mock[data-tod=day]{--tp:#F3F5F8;--g0:#2F6FD0;--g1:#5E98E6;--g2:#9CC3F2;--g3:#C9DDF7;--g4:rgba(227,237,249,.6)}
+.cmp-card-pill,.cmp-card-block,.cmp-card-table,.vmg-card{background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:0!important;
+  box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.6),0 0 0 1px rgba(20,30,80,.05),0 20px 40px -18px rgba(10,20,70,.35)!important}
+.cmp-card-block,.cmp-card-table,.vmg-card{border-radius:18px!important}.cmp-card-pill{border-radius:999px!important}
+.cmp-card-tag{background:rgba(255,255,255,.7)!important}
+/* Closing band ("Switch to Fill in weeks", "Take the leverage back"): paper with the blue sun rising */
+section.cmp-ftcta{position:relative;overflow:hidden;isolation:isolate;background:#F3F2F0!important}
+section.cmp-ftcta::before{content:"";position:absolute;left:50%;bottom:-520px;width:2200px;height:900px;margin-left:-1100px;border-radius:50%;filter:blur(24px);opacity:.55;z-index:0;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,#0B1240 0%,#1C34B4 20%,#3E63E6 38%,#8FA6F2 58%,rgba(206,214,248,.6) 74%,rgba(243,242,240,0) 100%)}
+section.cmp-ftcta>*{position:relative;z-index:1}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.cmp-twocol-figure,.cmp-card-pill,.cmp-card-block,.cmp-card-table,.vmg-card{background:rgba(255,255,255,.95)!important}}
+@media (prefers-reduced-motion:reduce){.cw.ca *{animation:none!important;opacity:1!important}section.chs .fq-caret,.cmx-comp i,.mc{animation:none!important}}
+</style>
+<script>
+(function(){
+  var path=location.pathname.replace(/\/+$/,'')||'/';
+  var I=function(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';};
+  var P={
+    cal:'<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
+    users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/>',
+    shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    spark:'<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>',
+    hand:'<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>',
+    receipt:'<path d="M13 16H8"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/>',
+    db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+    check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+    house:'<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    inbox:'<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+    sq:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/>',
+    file:'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+    brief:'<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
+    folder:'<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+    bld:'<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
+    chart:'<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>'
+  };
+  function ready(f){if(document.readyState!=='loading')f();else document.addEventListener('DOMContentLoaded',f);}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1. Straight double quotes only: curly and low quotes in visible text become " */
+  function quotes(){
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode&&n.parentNode.nodeName;return (/SCRIPT|STYLE|TEXTAREA|CODE|NOSCRIPT/.test(p)||!/[“”„‟″]/.test(n.nodeValue))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+    var n,l=[];while(n=w.nextNode())l.push(n);
+    l.forEach(function(t){t.nodeValue=t.nodeValue.replace(/[“”„‟″]/g,'"');});
+  }
+  /* 2. Closes: one close per page (pages with their own photo close drop the shared one); consultants wording on Procurement, HR and Finance */
+  function closes(){
+    var own=document.querySelector('section.cls,section.cl-end');
+    if(own&&own.offsetParent!==null)document.querySelectorAll('section.sec-cta').forEach(function(s){s.style.display='none';});
+    if(/^\/functions\/(procurement|hrandta|finance)(-sundown)?$/.test(path))
+      document.querySelectorAll('h2.sec-cta-h2,h2.cls-h').forEach(function(h){h.textContent='Take consultants off the spreadsheets.';});
+  }
+  /* 3. /customers: dark hero and dark navbar, as on the stories */
+  function customers(){
+    if(!/^\/customers(-sundown)?$/.test(path))return;
+    document.body.classList.add('p11-dark');
+    var nav=document.querySelector('.nav-v2');if(nav){nav.classList.add('sd-nav-dark');nav.style.setProperty('--sd-nav-bg','#0a0a0a');}
+    try{dispatchEvent(new Event('scroll'));}catch(e){}
+  }
+  /* 4. Home composer: type a hiring question, send, Fill answers, loop while in view */
+  function composer(){
+    var sec=document.querySelector('section.chs');if(!sec)return;
+    var t=sec.querySelector('.fq-type');if(!t||t.__fq)return;t.__fq=1;
+    var orig=t.textContent,box=t.parentElement&&t.parentElement.parentElement,send=box&&box.querySelector('.fq-send'),sug=sec.querySelector('.fq-suggs');
+    var Q='Can you find a senior backend engineer for payments by 1 Dec?';
+    if(sug){sug.style.position='relative';var r=document.createElement('span');r.className='fq-reply';r.innerHTML=I(P.spark)+'<span>Drafted the request · 3 suppliers have placed this role before</span>';sug.appendChild(r);}
+    if(reduce||!('IntersectionObserver' in window))return;
+    var run=false,tm=null;
+    function later(f,ms){tm=setTimeout(function(){if(run)f();},ms);}
+    function type(i){
+      if(i<=Q.length){t.textContent=Q.slice(0,i);later(function(){type(i+1);},30+Math.random()*45);return;}
+      later(function(){if(send)send.classList.add('fq-press');
+        later(function(){if(send)send.classList.remove('fq-press');t.textContent='';sec.classList.add('fq-answered');
+          later(function(){sec.classList.remove('fq-answered');later(function(){type(0);},900);},window.__fqHold||3800);},360);},700);
+    }
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&!run){run=true;clearTimeout(tm);type(0);}
+      else if(!e.isIntersecting&&run){run=false;clearTimeout(tm);sec.classList.remove('fq-answered');t.textContent=orig;}
+    });},{threshold:.35}).observe(t.closest('.chp-win')||box||t);
+  }
+  /* 5. Source and Control windows */
+  function windows(){
+    if(reduce||!('IntersectionObserver' in window))return;
+    var ws=document.querySelectorAll('.fl-v>.cw:not(.cw-ask)');if(!ws.length)return;
+    ws.forEach(function(w){
+      if(w.__ca)return;w.__ca=1;
+      var body=w.querySelector('.cw-body')||w;
+      [].forEach.call(body.querySelectorAll('*'),function(p){
+        if(p.closest('svg')||p.closest('.ca-row')||p.closest('.cw-bar'))return;
+        var k=p.children;if(k.length<3)return;var c=k[0].classList[0],same=0;
+        for(var j=0;j<k.length;j++)if(k[j].classList[0]===c&&k[j].nodeName===k[0].nodeName)same++;
+        if(same<3||same<k.length-1)return;
+        [].forEach.call(k,function(r,j){r.classList.add('ca-row');r.style.setProperty('--i',j);
+          [].forEach.call(r.querySelectorAll('.pill,.ok'),function(x){x.classList.add('ca-pop');x.style.setProperty('--d',(j*90+520)+'ms');});
+          [].forEach.call(r.querySelectorAll('.rg-tl i'),function(x){x.classList.add('ca-grow');x.style.setProperty('--d',(j*90+450)+'ms');});
+        });
+      });
+      [].forEach.call(w.querySelectorAll('.pn-h .pill'),function(x){x.classList.add('ca-pop');x.style.setProperty('--d','350ms');});
+      [].forEach.call(w.querySelectorAll('.fp-bandr'),function(x){x.classList.add('ca-grow');x.style.setProperty('--d','300ms');});
+      [].forEach.call(w.querySelectorAll('.fp-dot,.fp-band span.o'),function(x){x.classList.add('ca-slide');x.style.setProperty('--d','450ms');});
+      [].forEach.call(w.querySelectorAll('.cmp-r.bad'),function(x){x.classList.add('ca-flash');x.style.setProperty('--d','1000ms');});
+      [].forEach.call(w.querySelectorAll('.dec'),function(x){x.classList.add('ca-in-r');x.style.setProperty('--d','650ms');});
+      [].forEach.call(w.querySelectorAll('.cb.ink'),function(x){x.classList.add('ca-ink');x.style.setProperty('--d','1500ms');});
+      w.classList.add('ca');
+    });
+    function count(w){var b=w.querySelector('.fp-big');if(!b||!b.firstChild||b.firstChild.nodeType!==3)return;var node=b.firstChild,end=parseInt(node.nodeValue.replace(/\D/g,''),10);if(!end)return;
+      var start=Math.round(end*.83),t0=null;function f(ts){if(!t0)t0=ts;var k=Math.min(1,(ts-t0-450)/1000);if(k<0){node.nodeValue=fmt(start);requestAnimationFrame(f);return;}var v=Math.round(start+(end-start)*(1-Math.pow(1-k,3)));node.nodeValue=fmt(v);if(k<1)requestAnimationFrame(f);}
+      function fmt(v){return String(v).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ';}requestAnimationFrame(f);}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var w=e.target;
+      if(e.isIntersecting&&e.intersectionRatio>=.3){if(!w.classList.contains('ca-on')){w.classList.add('ca-on');count(w);}}
+      else if(!e.isIntersecting){w.classList.remove('ca-on');}
+    });},{threshold:[0,.3]});
+    ws.forEach(function(w){io.observe(w);});
+  }
+  /* 5b. Control step 05: a question in the composer, Fill answers and shows a chart */
+  function ask(){
+    if(!/^\/control$/.test(path)||document.querySelector('.cw-ask'))return;
+    var steps=document.querySelectorAll('.fl-steps>.fl-step');if(!steps.length)return;
+    var last=steps[steps.length-1],st=last.cloneNode(true);
+    var n=st.querySelector('.fl-n span');if(n)n.textContent='05';
+    var k=st.querySelector('.fl-k');if(k)k.textContent='Insights';
+    var h=st.querySelector('.fl-h');if(h)h.textContent='Ask anything about your consultants';
+    var p=st.querySelector('.fl-t p');if(p)p.textContent='Ask the way you would ask a colleague. Fill answers from your own contracts, hours and invoices, and shows the numbers behind the answer.';
+    var v=st.querySelector('.fl-v');if(!v)return;
+    var Q='What is our most active supplier and how much do they invoice us?';
+    var rows=[['Knowit',4.2,1],['Sigma IT',2.6],['Acando',1.9],['HiQ',1.4],['Randstad',0.9]];
+    var chart=rows.map(function(r,i){return '<div class="ask-row'+(r[2]?' top':'')+'"><b>'+r[0]+'</b><span class="ask-bar"><i style="--w:'+Math.round(r[1]/4.2*100)+'%;--d:'+(i*110+150)+'ms"></i></span><span class="ask-v" style="--d:'+(i*110+500)+'ms">'+r[1].toFixed(1)+' M</span></div>';}).join('');
+    v.innerHTML='<div class="cw cw-ask"><div class="cw-bar"><i></i><i></i><i></i><span>Fill · Ask</span></div><div class="cw-body"><div class="pn">'+
+      '<div class="pn-h"><b>Ask Fill</b><span class="mut" style="margin-left:auto">Your contracts, hours and invoices</span></div>'+
+      '<div class="ask-thread"><p class="ask-hint"><b>What do you want to know?</b>Answers come from your own data, with the numbers to check them.</p>'+
+      '<div class="ask-user">'+Q+'</div>'+
+      '<div class="ask-who"><span>'+I(P.spark)+'</span>Fill<span class="ask-dots"><i></i><i></i><i></i></span></div>'+
+      '<div class="ask-ans"><p class="ask-txt"><b>Knowit.</b> 9 consultants on assignment right now, and <b>4.2 M EUR</b> invoiced in the last 12 months, 38 % of your consultant spend.</p>'+
+      '<div class="ask-chart"><div class="ask-ch"><span>Invoiced per supplier, last 12 months</span><span>EUR</span></div>'+chart+'</div>'+
+      '<p class="ask-src">From 214 invoices matched to approved hours</p></div></div>'+
+      '<div class="ask-comp"><span class="ask-q"></span><span class="ask-caret"></span><span class="ask-send">'+I('<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>')+'</span></div>'+
+      '</div></div></div>';
+    last.parentNode.insertBefore(st,last.nextSibling);
+    var w=v.querySelector('.cw-ask'),q=w.querySelector('.ask-q'),send=w.querySelector('.ask-send'),caret=w.querySelector('.ask-caret');
+    function done(){q.textContent='';w.classList.add('ask-sent','ask-done');}
+    if(reduce||!('IntersectionObserver' in window)){done();return;}
+    var run=false,tm=null;
+    function later(f,ms){tm=setTimeout(function(){if(run)f();},ms);}
+    function type(i){
+      if(i<=Q.length){q.textContent=Q.slice(0,i);later(function(){type(i+1);},28+Math.random()*40);return;}
+      later(function(){send.classList.add('on');
+        later(function(){send.classList.remove('on');q.textContent='';
+          var comp=w.querySelector('.ask-comp'),k=w.getBoundingClientRect().height/(w.offsetHeight||1)||1,y0=comp.getBoundingClientRect().top;
+          w.classList.add('ask-sent');
+          var dy=(y0-comp.getBoundingClientRect().top)/k;comp.style.transition='none';comp.style.transform='translateY('+dy+'px)';void comp.offsetWidth;
+          comp.style.transition='transform .6s cubic-bezier(.2,.7,.2,1)';comp.style.transform='';
+          later(function(){w.classList.add('ask-done');},1100);},320);},550);
+    }
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&e.intersectionRatio>=.35&&!run){run=true;clearTimeout(tm);w.classList.remove('ask-sent','ask-done');q.textContent='';later(function(){type(0);},400);}
+      else if(!e.isIntersecting&&run){run=false;clearTimeout(tm);}
+    });},{threshold:[0,.35]}).observe(w);
+  }
+  /* 5c. Control hero: several users' cursors; "You" hovers Omar Haddad's bar and the consultant card opens, then closes, in a loop */
+  function cursors(){document.querySelectorAll(':is(.fl-hwin,.chp-win) .cv').forEach(cursorsOn);}
+  function cursorsOn(cv){
+    if(cv.querySelector('.mc-layer'))return;
+    var bar=cv.querySelector('.tl-b.on'),cc=cv.querySelector('.cc');if(!bar||!cc)return;
+    var row=bar.closest('.tl-r');if(row)row.classList.add('mc-row');
+    var arrow=function(c){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2.5 10.6 21l2.7-7.7L21 10.6z" fill="'+c+'" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';};
+    var L=document.createElement('div');L.className='mc-layer';L.setAttribute('aria-hidden','true');
+    L.innerHTML='<div class="mc mc-a" style="--c:#5552D8">'+arrow('#5552D8')+'<span>Anna Berg</span></div>'+
+      '<div class="mc mc-b" style="--c:#1E7A43">'+arrow('#1E7A43')+'<span>Johan Lind</span></div>'+
+      '<div class="mc mc-you" style="--c:#C2410C">'+arrow('#C2410C')+'<span>You</span></div>';
+    cv.appendChild(L);
+    var you=L.querySelector('.mc-you');
+    var fitMc=function(){var k=cv.getBoundingClientRect().width/(cv.offsetWidth||1)||1;L.style.setProperty('--mcs',Math.min(2.4,1/k).toFixed(3));};fitMc();addEventListener('resize',fitMc);
+    function at(x,y){you.style.transform='translate('+x+'px,'+y+'px)';}
+    function target(){var c=cv.getBoundingClientRect(),b=bar.getBoundingClientRect(),k=cv.offsetWidth?c.width/cv.offsetWidth:1;
+      var vis=(Math.min(innerWidth,document.documentElement.clientWidth)-c.left)/k-70;
+      return [Math.round(Math.min((b.right-c.left)/k-90,vis)),Math.round((b.top-c.top)/k+4)];}
+    at(120,560);
+    if(reduce||!('IntersectionObserver' in window)){cv.classList.add('mc-on','mc-open','mc-hover');var t=target();at(t[0],t[1]);return;}
+    cv.classList.add('mc-on');
+    var run=false,tm=null;
+    function later(f,ms){tm=setTimeout(function(){if(run)f();},ms);}
+    function loop(){
+      var t=target();at(t[0],t[1]);
+      later(function(){cv.classList.add('mc-hover');
+        later(function(){cv.classList.add('mc-open');
+          later(function(){at(t[0]+40,t[1]+260);cv.classList.remove('mc-hover');
+            later(function(){cv.classList.remove('mc-open');
+              later(function(){at(140,540);later(loop,1800);},900);},700);},3800);},350);},1400);
+    }
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&!run){run=true;clearTimeout(tm);later(loop,600);}
+      else if(!e.isIntersecting&&run){run=false;clearTimeout(tm);cv.classList.remove('mc-open','mc-hover');at(120,560);}
+    });},{threshold:.25}).observe(cv);
+  }
+  /* 5d. /agents: brand tokens on the page; the agent built in the composer = invoice deviation, not timesheet approval */
+  function agentsPage(){
+    if(!/^\/agents$/.test(path))return;
+    document.body.classList.add('p11-ag');
+    document.querySelectorAll('.fw-pop .fw-q span').forEach(function(q){q.textContent='Build an agent that reminds managers to approve invoices that deviate 10 % or more from approved hours';});
+    document.querySelectorAll('.fw-pc,.fw-c.fw-new').forEach(function(c){
+      var pill=c.querySelector('.fw-p');if(pill){pill.className='fw-p fw-run';pill.innerHTML='<i></i>When an invoice arrives';}
+      var b=c.querySelector('b');if(b)b.textContent='Invoice deviation';
+      var j=c.querySelector('.fw-j');if(j)j.textContent=c.classList.contains('fw-pc')?'Reminds the manager to approve any invoice that deviates 10 % or more from approved hours. Never approves an invoice itself.':'Reminds managers to approve invoices 10 % or more off approved hours.';
+      var ch=c.querySelectorAll('.fw-ch');if(ch[0])ch[0].textContent='Invoices';if(ch[1])ch[1].textContent='Managers';
+    });
+    /* Clear rules = option E: the agent's own rule card + an activity log */
+    var agd=document.querySelector('section.agd');
+    if(agd&&!agd.querySelector('.agr')){
+      var g=agd.querySelector('.agd-g'),fl=agd.querySelector('.agd-flow');if(g)g.remove();if(fl)fl.remove();
+      var hp=agd.querySelector('.agd-h p');if(hp)hp.textContent='Every agent comes with its own rule card: what starts it, what it can do, what it can never do. And a log of every step it takes.';
+      var sv=function(d,s){return '<svg viewBox="0 0 24 24" width="'+(s||16)+'" height="'+(s||16)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>';};
+      var lock=sv('<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',15);
+      var rcpt=sv('<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/>',18);
+      var hist=sv('<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>');
+      var kv=function(k,v){return '<div class="agr-kv"><span>'+k+'</span><div>'+v+'</div></div>';};
+      var log=[['08:02','INV-2291 from Knowit arrived'],['08:02','12 % over approved hours'],['08:03','Reminded Anna Berg'],['10:41','<span class="agr-per">Person</span>Anna approved']];
+      var w=document.createElement('div');w.className='agr';
+      w.innerHTML='<div class="agr-card"><div class="agr-top"><div class="agr-id"><span class="agr-ic">'+rcpt+'</span><b>Invoice deviation</b></div><button type="button" class="agr-sw" role="switch" aria-checked="true" aria-label="Invoice deviation agent on"></button></div>'
+        +kv('Starts when','An invoice arrives')
+        +kv('Reads','<span class="agr-tag">Invoices</span><span class="agr-tag">Approved hours</span><span class="agr-tag">Managers</span>')
+        +kv('Can','Compare the invoice with approved hours. Remind the manager when it is 10 % or more off.')
+        +kv('Can never','<div class="agr-no">'+lock+'Approve the invoice</div><div class="agr-no">'+lock+'Pay or change it</div>')
+        +kv('Hands to','The manager on the assignment')
+        +kv('Set by','Your admin · edited 3 Nov')
+        +'</div><div class="agr-log"><div class="agr-lh">'+hist+'Every step, logged</div>'
+        +log.map(function(r,i){return '<div class="agr-lr" style="transition-delay:'+(300+i*550)+'ms"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';}).join('')+'</div>';
+      agd.querySelector('.agd-in').appendChild(w);agd.classList.add('agd-e');
+      var sw=w.querySelector('.agr-sw');sw.addEventListener('click',function(){var on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',on);sw.setAttribute('aria-label','Invoice deviation agent '+(on?'on':'off'));});
+      new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){w.classList.add('agr-in');o.disconnect();}});},{threshold:.35}).observe(w);
+    }
+  }
+  /* 6. Compare pages */
+  function compare(){
+    if(!/^\/compare\//.test(path))return;
+    var fw=document.querySelector('.cmp-hero-figwrap');
+    if(fw&&!fw.querySelector('.cmx-stage')){
+      var nav=[['house','Overview',1],['inbox','Inbox','12'],['sq','Approvals','3l'],['-','Sourcing'],['file','Requests'],['-','Workforce'],['brief','Assignments'],['users','Consultants'],['folder','Projects'],['-','Company'],['bld','Suppliers'],['chart','Analytics']];
+      var side='<div class="cmx-org"><span>N</span>Nordvik Group</div>'+nav.map(function(n){if(n[0]==='-')return '<div class="cmx-sec">'+n[1]+'</div>';var em=n[2]===1||!n[2]?'':(/l$/.test(n[2])?'<em class="l">'+n[2].slice(0,-1)+'</em>':'<em>'+n[2]+'</em>');return '<div class="cmx-nav'+(n[2]===1?' on':'')+'">'+I(P[n[0]])+n[1]+em+'</div>';}).join('');
+      var rows=[['OH','#1f3b57','Omar Haddad','Cloud engineer','Sigma IT','31 Mar','grn','On track'],['JE','#7a4a2a','Jonas Ek','Backend developer','Knowit','25 Nov','amb','Ends soon'],['EB','#3f6b50','Elin Berg','UX designer','Sigma IT','31 Jan','grn','On track'],['KS','#6E6DC6','Karl Ström','Data engineer','Knowit','30 Jun','lav','Rate check']];
+      var tbl='<div class="cmx-tr h"><span>Consultant</span><span>Supplier</span><span>Ends</span><span>Status</span></div>'+rows.map(function(r){return '<div class="cmx-tr"><span><span class="cmx-av" style="background:'+r[1]+'">'+r[0]+'</span><b>'+r[2]+'</b> <span class="cmx-mut">· '+r[3]+'</span></span><span>'+r[4]+'</span><span>'+r[5]+'</span><span><span class="cmx-pill '+r[6]+'">'+r[7]+'</span></span></div>';}).join('');
+      var st=document.createElement('div');st.className='cmx-stage';st.setAttribute('aria-hidden','true');
+      st.innerHTML='<div class="cmx-win"><aside class="cmx-side">'+side+'</aside><div class="cmx-main"><p class="cmx-greet">Good morning, Anna. What do you need?</p><div class="cmx-comp">A senior backend engineer for payments, 1 Dec<i></i><b></b></div><div class="cmx-chips"><span class="cmx-chip">Hire a consultant</span><span class="cmx-chip">Extend an assignment</span><span class="cmx-chip">Compare candidates</span><span class="cmx-chip">Check a rate</span></div><div class="cmx-cards"><div class="cmx-card"><small>My approvals <span class="cmx-pill lav">3 waiting</span></small>3 contracts wait for your approval</div><div class="cmx-card"><small>Ending soon <span class="cmx-pill amb">14 days</span></small>Jonas Ek ends on 25 November</div><div class="cmx-card"><small>Candidates <span class="cmx-pill lav">4 new</span></small>New candidates for UX designer</div></div><div class="cmx-tbl"><div style="display:flex;justify-content:space-between;height:34px;align-items:center"><span><b>My consultants</b> <span class="cmx-mut">12 active</span></span><span style="color:#5750B1">View all</span></div>'+tbl+'</div></div></div>';
+      fw.appendChild(st);fw.classList.add('cmx-on');
+      var fit=function(){var win=st.firstChild,W=st.clientWidth,s=Math.min(1,(W-48)/1040);win.style.transform=s<1?'scale('+s.toFixed(4)+')':'';win.style.top=(s<1?Math.round(40*s+12):72)+'px';};
+      fit();addEventListener('resize',fit);
+    }
+    var ico=function(txt){txt=txt.toLowerCase();
+      return /implement|live in|weeks|setup|set-up|onboard/.test(txt)?'cal':/adoption|hiring|manager|users/.test(txt)?'users':/complian|gdpr|eu |europe|secur|residency/.test(txt)?'shield':/ai|sourcing|workflow|agent/.test(txt)?'spark':/vendor|supplier|direct|relationship/.test(txt)?'hand':/markup|pric|fee|cost|spend/.test(txt)?'receipt':/data|own|record|visib/.test(txt)?'db':'check';};
+    document.querySelectorAll('.cmp-twocol-pin').forEach(function(pin){var i=pin.querySelector('.cmp-twocol-pin-icon');if(i&&!i.querySelector('svg'))i.innerHTML=I(P[ico(pin.textContent)]);});
+    var tods=['dawn','day','sun'];
+    document.querySelectorAll('.cmp-card-mock').forEach(function(m){var card=m.closest('.cmp-card');var sib=card?[].filter.call(card.parentElement.children,function(c){return c.classList.contains('cmp-card');}):[];m.setAttribute('data-tod',tods[Math.max(0,sib.indexOf(card))%3]);});
+  }
+  /* 7. Brand tokens site-wide: green, amber and off-ramp purples in pills, dots and bars -> design system tokens.
+        green-50 + health-good, warning badge (#f0ad4e/#533200), accent-50/100/200/500/700. People avatars, cursors and the blue sun are left alone. */
+  function brandTokens(){
+    var BG={'227,246,233':'#F0FDF4','230,246,238':'#F0FDF4','233,246,238':'#F0FDF4','254,243,226':'#F0AD4E','255,241,226':'#F0AD4E','224,123,31':'#BB4D00',
+      '238,238,252':'#EBECFE','230,232,251':'#EBECFE','230,229,247':'#DADCFF','201,200,240':'#C6C8FE','201,205,245':'#C6C8FE','97,87,248':'#6E6DC6','75,73,200':'#6E6DC6','85,82,216':'#6E6DC6'};
+    var FG={'0,166,62':'#008236','0,132,58':'#008236','14,122,82':'#008236','30,122,67':'#008236','88,86,184':'#5750B1','62,60,168':'#5750B1','90,89,181':'#5750B1','163,90,12':'#533200'};
+    var key=function(c){var m=/^rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)$/.exec(c);if(!m||(m[4]!==undefined&&+m[4]<.99))return '';return m[1]+','+m[2]+','+m[3];};
+    [].forEach.call(document.querySelectorAll('body *'),function(e){
+      if(e.__bt||e.closest('svg,.mc-layer'))return;
+      var cs=getComputedStyle(e),b=BG[key(cs.backgroundColor)],f=FG[key(cs.color)];
+      if(!b&&!f)return;e.__bt=1;
+      if(b){e.style.setProperty('background-color',b,'important');if(b==='#F0AD4E')e.style.setProperty('color','#533200','important');}
+      if(f&&b!=='#F0AD4E')e.style.setProperty('color',f,'important');
+    });
+  }
+  ready(function(){
+    [closes,customers,agentsPage,compare,composer,ask,cursors,windows,quotes].forEach(function(f){try{f();}catch(e){}});
+    setTimeout(function(){try{quotes();}catch(e){}},1500);
+    [0,1600,4000].forEach(function(t){setTimeout(function(){try{brandTokens();}catch(e){}},t);});
+  });
+})();
+</script>
